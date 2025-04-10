@@ -29,18 +29,31 @@ export class AdminService {
     if (!pet) throw new NotFoundException('Pet not found');
     return this.prisma.pet.delete({ where: { id } });
   }
-
   async addCoinToUser(userId: number, coin: number) {
-    // Tìm user theo id
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    // Tìm user theo id và chỉ lấy các trường cần thiết, không lấy password
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        coin: true,
+        createdAt: true,
+      },
+    });
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    // Cập nhật số coin: dùng increment để tăng số coin hiện có của user
+    // Cộng thêm xu cho user bằng cách increment
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: { coin: { increment: coin } },
+      select: {
+        id: true,
+        email: true,
+        coin: true,
+      },
     });
 
     return { message: 'Cộng xu thành công', updatedUser };
