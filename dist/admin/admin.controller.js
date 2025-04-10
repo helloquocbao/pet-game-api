@@ -16,6 +16,8 @@ exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
 const admin_service_1 = require("./admin.service");
 const jwt_admin_guard_1 = require("../admin-auth/jwt-admin.guard");
+const swagger_1 = require("@nestjs/swagger");
+const add_coin_dto_1 = require("./dto/add-coin.dto");
 let AdminController = class AdminController {
     adminService;
     constructor(adminService) {
@@ -32,6 +34,9 @@ let AdminController = class AdminController {
     }
     deletePet(id) {
         return this.adminService.deletePet(+id);
+    }
+    async addCoinForUser(dto) {
+        return this.adminService.addCoinToUser(dto.userId, dto.coin);
     }
 };
 exports.AdminController = AdminController;
@@ -61,6 +66,16 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "deletePet", null);
+__decorate([
+    (0, common_1.Post)('AddCoinForUser'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cộng xu cho user (dành cho admin)' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cộng xu thành công' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'User không tồn tại' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_coin_dto_1.AddCoinDto]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "addCoinForUser", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(jwt_admin_guard_1.JwtAdminGuard),

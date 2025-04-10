@@ -1,20 +1,28 @@
-import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Get, UseGuards, Req } from '@nestjs/common';
 import { PetService } from './pet.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
-import { CreatePetDto } from './dto/create-pet.dto';
+import { Request } from 'express';
 
 @Controller('pet')
 @UseGuards(JwtAuthGuard)
 export class PetController {
   constructor(private readonly petService: PetService) {}
 
-  @Post('AddPet')
-  adopt(@Request() req, @Body() dto: CreatePetDto) {
-    return this.petService.addPet(req.user.userId, dto);
+  @Get('GetMyPets')
+  async getMyPets(@Req() req: Request) {
+    const userId = (req as any).user.userId;
+    return this.petService.getPetsByUser(userId);
   }
 
-  @Get('GetMyPets')
-  myPets(@Request() req) {
-    return this.petService.getMyPets(req.user.userId);
+  @Post('ClaimPet')
+  async claimRandomPet(@Req() req: Request) {
+    const userId = (req as any).user.userId;
+    return this.petService.claimFirstPet(userId);
+  }
+
+  @Post('BuyPetWithCoin')
+  async buyPetWithCoin(@Req() req: Request) {
+    const userId = (req as any).user.userId;
+    return this.petService.buyPet(userId);
   }
 }

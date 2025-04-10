@@ -39,6 +39,17 @@ let AdminService = class AdminService {
             throw new common_1.NotFoundException('Pet not found');
         return this.prisma.pet.delete({ where: { id } });
     }
+    async addCoinToUser(userId, coin) {
+        const user = await this.prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        const updatedUser = await this.prisma.user.update({
+            where: { id: userId },
+            data: { coin: { increment: coin } },
+        });
+        return { message: 'Cộng xu thành công', updatedUser };
+    }
 };
 exports.AdminService = AdminService;
 exports.AdminService = AdminService = __decorate([

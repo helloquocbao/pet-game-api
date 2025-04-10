@@ -16,35 +16,46 @@ exports.PetController = void 0;
 const common_1 = require("@nestjs/common");
 const pet_service_1 = require("./pet.service");
 const jwt_guard_1 = require("../auth/jwt.guard");
-const create_pet_dto_1 = require("./dto/create-pet.dto");
 let PetController = class PetController {
     petService;
     constructor(petService) {
         this.petService = petService;
     }
-    adopt(req, dto) {
-        return this.petService.addPet(req.user.userId, dto);
+    async getMyPets(req) {
+        const userId = req.user.userId;
+        return this.petService.getPetsByUser(userId);
     }
-    myPets(req) {
-        return this.petService.getMyPets(req.user.userId);
+    async claimRandomPet(req) {
+        const userId = req.user.userId;
+        return this.petService.claimFirstPet(userId);
+    }
+    async buyPetWithCoin(req) {
+        const userId = req.user.userId;
+        return this.petService.buyPet(userId);
     }
 };
 exports.PetController = PetController;
 __decorate([
-    (0, common_1.Post)('AddPet'),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, create_pet_dto_1.CreatePetDto]),
-    __metadata("design:returntype", void 0)
-], PetController.prototype, "adopt", null);
-__decorate([
     (0, common_1.Get)('GetMyPets'),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], PetController.prototype, "myPets", null);
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "getMyPets", null);
+__decorate([
+    (0, common_1.Post)('ClaimPet'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "claimRandomPet", null);
+__decorate([
+    (0, common_1.Post)('BuyPetWithCoin'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "buyPetWithCoin", null);
 exports.PetController = PetController = __decorate([
     (0, common_1.Controller)('pet'),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),

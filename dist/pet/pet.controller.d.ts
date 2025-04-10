@@ -1,33 +1,50 @@
 import { PetService } from './pet.service';
-import { CreatePetDto } from './dto/create-pet.dto';
+import { Request } from 'express';
 export declare class PetController {
     private readonly petService;
     constructor(petService: PetService);
-    adopt(req: any, dto: CreatePetDto): Promise<{
-        id: number;
-        createdAt: Date;
-        name: string;
-        species: string;
-        hp: number;
-        damage: number;
-        luck: number;
-        stamina: number;
-        ownerId: number;
-    }>;
-    myPets(req: any): Promise<({
+    getMyPets(req: Request): Promise<({
         owner: {
-            email: string;
             id: number;
+            createdAt: Date;
+            email: string;
+            password: string;
+            coin: number;
         };
     } & {
         id: number;
-        createdAt: Date;
         name: string;
-        species: string;
+        type: import(".prisma/client").$Enums.PetType;
+        rarity: import(".prisma/client").$Enums.Rarity;
         hp: number;
         damage: number;
         luck: number;
         stamina: number;
         ownerId: number;
+        createdAt: Date;
     })[]>;
+    claimRandomPet(req: Request): Promise<{
+        id: number;
+        name: string;
+        type: import(".prisma/client").$Enums.PetType;
+        rarity: import(".prisma/client").$Enums.Rarity;
+        hp: number;
+        damage: number;
+        luck: number;
+        stamina: number;
+        ownerId: number;
+        createdAt: Date;
+    }>;
+    buyPetWithCoin(req: Request): Promise<{
+        id: number;
+        name: string;
+        type: import(".prisma/client").$Enums.PetType;
+        rarity: import(".prisma/client").$Enums.Rarity;
+        hp: number;
+        damage: number;
+        luck: number;
+        stamina: number;
+        ownerId: number;
+        createdAt: Date;
+    }>;
 }

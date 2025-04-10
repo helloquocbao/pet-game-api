@@ -16,7 +16,8 @@ export declare class AdminService {
         id: number;
         createdAt: Date;
         name: string;
-        species: string;
+        type: import(".prisma/client").$Enums.PetType;
+        rarity: import(".prisma/client").$Enums.Rarity;
         hp: number;
         damage: number;
         luck: number;
@@ -28,16 +29,28 @@ export declare class AdminService {
         email: string;
         password: string;
         createdAt: Date;
+        coin: number;
     }>;
     deletePet(id: number): Promise<{
         id: number;
         createdAt: Date;
         name: string;
-        species: string;
+        type: import(".prisma/client").$Enums.PetType;
+        rarity: import(".prisma/client").$Enums.Rarity;
         hp: number;
         damage: number;
         luck: number;
         stamina: number;
         ownerId: number;
+    }>;
+    addCoinToUser(userId: number, coin: number): Promise<{
+        message: string;
+        updatedUser: {
+            id: number;
+            email: string;
+            password: string;
+            createdAt: Date;
+            coin: number;
+        };
     }>;
 }

@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -10,17 +8,19 @@ generator client {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  email     String @unique
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
   password  String
   createdAt DateTime @default(now())
- pets      Pet[]   // One-to-many: Một user có nhiều thú
+  coin      Int      @default(0)
+  pets      Pet[]    // Một user có nhiều thú
 }
 
 model Pet {
   id        Int      @id @default(autoincrement())
   name      String
-  species   String
+  type      PetType
+  rarity    Rarity   // Cấp độ hiếm
   hp        Int      @default(100)
   damage    Int      @default(10)
   luck      Int      @default(5)
@@ -31,8 +31,22 @@ model Pet {
 }
 
 model Admin {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
+}
+
+enum PetType {
+  BAY       // Rồng
+  BO_SAT    // Rắn
+  THU       // Hổ
+}
+
+enum Rarity {
+  COMMON
+  RARE
+  SUPER_RARE
+  LEGENDARY
+  MYTHICAL
 }
