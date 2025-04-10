@@ -35,6 +35,7 @@ prisma/dev.sqlite
 # Coverage / Build
 coverage
 dist
+dist/
 build
 
 # Other
