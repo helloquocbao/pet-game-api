@@ -7,6 +7,13 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // ✅ Bật CORS cho tất cả domain (tạm thời)
+  app.enableCors({
+    origin: '*', // <-- CHO PHÉP MỌI NGUỒN (có thể giới hạn sau)
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
   // ✅ Global ValidationPipe
   app.useGlobalPipes(
     new ValidationPipe({
