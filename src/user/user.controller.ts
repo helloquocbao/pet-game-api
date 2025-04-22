@@ -2,6 +2,7 @@
 import { Controller, Get, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { UserService } from './user.service';
+import { errorResponse, successResponse } from '@app/common/helpers/response.helper';
 
 @Controller('user')
 export class UserController {
@@ -10,6 +11,12 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Request() req) {
-    return this.userService.getUserById(req.user.userId);
+    try {
+      const user = this.userService.getUserById(req.user.userId);
+
+      return successResponse(user, 'User fetched successfully');
+    } catch (err) {
+      return errorResponse('Failed to fetch user', 500, err.message);
+    }
   }
 }
