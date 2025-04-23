@@ -1,8 +1,0 @@
-services:
-  - type: cron
-    name: ping-self
-    schedule: '*/10 * * * *' # mỗi 10 phút
-    env: docker
-    dockerfilePath: ./Dockerfile.ping
-    plan: free
-    command: curl https://pet-game-api.onrender.com/health

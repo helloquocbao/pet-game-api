@@ -1,3 +1,0 @@
-FROM alpine
-RUN apk add --no-cache curl
-CMD curl https://pet-game-api.onrender.com/health

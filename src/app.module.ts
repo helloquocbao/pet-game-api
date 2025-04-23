@@ -6,7 +6,6 @@ import { UserModule } from './user/user.module';
 import { PetModule } from './pet/pet.module';
 import { AdminAuthModule } from './admin-auth/admin-auth.module';
 import { AdminModule } from './admin/admin.module';
-import { SelfPingService } from './self-ping.service';
 import { AppController } from './app.controller';
 // Các module khác nếu có
 
@@ -22,7 +21,7 @@ import { AppController } from './app.controller';
     AdminModule,
     PetModule,
   ],
-  providers: [PrismaService, SelfPingService],
+  providers: [PrismaService],
   controllers: [AppController],
 })
 export class AppModule {}
