@@ -20,8 +20,8 @@ export class PetController {
     return this.petService.claimFirstPet(userId);
   }
 
-  @Post('BuyPetWithCoin')
-  async buyPetWithCoin(@Req() req: Request) {
+  @Post('BuyPet')
+  async buyPet(@Req() req: Request) {
     const userId = (req as any).user.userId;
     return this.petService.buyPet(userId);
   }
