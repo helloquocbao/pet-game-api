@@ -20,7 +20,8 @@ model Pet {
   id        Int      @id @default(autoincrement())
   name      String
   type      PetType
-  rarity    Rarity   // Cấp độ hiếm
+  rarity    Rarity  // Cấp độ hiếm
+  level     Int      @default(1)
   hp        Int      @default(100)
   damage    Int      @default(10)
   luck      Int      @default(5)
