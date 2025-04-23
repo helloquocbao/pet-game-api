@@ -7,7 +7,7 @@ export class SelfPingService {
 
   @Cron('*/50 * * * * *') // mỗi 50 giây
   async handlePing() {
-    const API_URL = 'https://your-app-name.onrender.com/health'; // 👈 Thay bằng URL thật của bạn
+    const API_URL = 'https://pet-game-api.onrender.com/health';
 
     try {
       const res = await fetch(API_URL);
