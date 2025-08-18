@@ -1,0 +1,126 @@
+{
+  "info": {
+    "_postman_id": "pet-game-backend-collection",
+    "name": "Pet Game Backend API",
+    "description": "Collection for testing Pet Game Backend API endpoints (petId in body for feed and evolve).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Eggs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/game/eggs?userId=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "eggs"],
+          "query": [{ "key": "userId", "value": "1" }]
+        }
+      }
+    },
+    {
+      "name": "Gacha Egg",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"type\": \"common\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/game/gacha",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "gacha"]
+        }
+      }
+    },
+    {
+      "name": "Hatch Egg",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/game/eggs/1/hatch",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "eggs", "1", "hatch"]
+        }
+      }
+    },
+    {
+      "name": "Get Pet",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/game/pets/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "pets", "1"]
+        }
+      }
+    },
+    {
+      "name": "Feed Pet (petId in body)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"petId\": 1,\n  \"userId\": 1,\n  \"itemId\": 1,\n  \"quantity\": 5\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/game/pets/feed",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "pets", "feed"]
+        }
+      }
+    },
+    {
+      "name": "Evolve Pet (petId in body)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"petId\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/game/pets/evolve",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "pets", "evolve"]
+        }
+      }
+    },
+    {
+      "name": "Get All Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/game/items",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "items"]
+        }
+      }
+    },
+    {
+      "name": "Get User Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/game/user-items?userId=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["game", "user-items"],
+          "query": [{ "key": "userId", "value": "1" }]
+        }
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "baseUrl_dev", "value": "http://localhost:3000" },
+    { "key": "baseUrl_prod", "value": "https://your-production-url.com" }
+  ]
+}

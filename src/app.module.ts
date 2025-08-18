@@ -1,27 +1,17 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { PrismaService } from './common/prisma.service';
-import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './user/user.module';
-import { PetModule } from './pet/pet.module';
-import { AdminAuthModule } from './admin-auth/admin-auth.module';
-import { AdminModule } from './admin/admin.module';
-import { AppController } from './app.controller';
-// Các module khác nếu có
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GameModule } from './game/game.module';
 
 @Module({
   imports: [
-    // Load biến môi trường từ .env và dùng toàn cục
-    ConfigModule.forRoot({
-      isGlobal: true,
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'game.db',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
-    AuthModule,
-    AdminAuthModule,
-    UserModule,
-    AdminModule,
-    PetModule,
+    GameModule,
   ],
-  providers: [PrismaService],
-  controllers: [AppController],
 })
 export class AppModule {}
