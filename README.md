@@ -21,78 +21,56 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Pet Game Backend API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Backend server for a virtual pet game, built with NestJS and TypeScript.
 
-## Project setup
+## Features
+- Gacha: Rút trứng, nở trứng thành pet
+- Pet: Quản lý pet, cho ăn, tiến hóa, tính exp từng level
+- Item: Quản lý vật phẩm, cộng exp cho pet
+- User: Quản lý người dùng
+- Exception & Logging: Xử lý lỗi, ghi log
+- SQLite database, TypeORM
+- RESTful API, dễ dàng test với Postman
 
-```bash
-$ npm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
+## Quick Start
 
 ```bash
-# unit tests
-$ npm run test
+# Cài đặt dependencies
+npm install
 
-# e2e tests
-$ npm run test:e2e
+# Chạy server ở chế độ dev
+npm run start:dev
 
-# test coverage
-$ npm run test:cov
+# Chạy server ở chế độ production
+npm run start:prod
 ```
 
-## Deployment
+## API Endpoints
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- `GET /game/eggs?userId=1` - Lấy danh sách trứng của user
+- `POST /game/gacha` - Rút trứng (body: userId, type)
+- `POST /game/eggs/:id/hatch` - Nở trứng thành pet
+- `GET /game/pets/:id` - Lấy thông tin pet
+- `GET /game/pets?userId=1` - Lấy danh sách pet của user
+- `POST /game/pets/feed` - Cho pet ăn (body: petId, userId, itemId, quantity)
+- `POST /game/pets/evolve` - Tiến hóa pet (body: petId)
+- `GET /game/items` - Lấy danh sách item
+- `GET /game/user-items?userId=1` - Lấy item của user
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Postman Collection
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+File `pet-game-backend.postman_collection.json` đã được tạo sẵn để test các API. Import vào Postman và chọn môi trường phù hợp (`baseUrl`).
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Database
+- Sử dụng SQLite (`game.db`)
+- Khi thay đổi entity, chỉ cần khởi động lại server (TypeORM tự cập nhật schema)
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Development
+- Lint & format: `npm run lint:fix` và `npm run format`
+- Test: `npm run test`, `npm run test:e2e`
+- Cấu hình Husky, lint-staged để kiểm tra code trước khi commit
 
 ## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+MIT
