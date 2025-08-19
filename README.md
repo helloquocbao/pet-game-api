@@ -21,9 +21,9 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# Pet Game Backend API
+# Pet Game Backend
 
-Backend server for a virtual pet game, built with NestJS and TypeScript.
+Backend server for a virtual pet game, built with NestJS, Prisma, and PostgreSQL.
 
 ## Features
 - Gacha: Rút trứng, nở trứng thành pet
@@ -31,8 +31,9 @@ Backend server for a virtual pet game, built with NestJS and TypeScript.
 - Item: Quản lý vật phẩm, cộng exp cho pet
 - User: Quản lý người dùng
 - Exception & Logging: Xử lý lỗi, ghi log
-- SQLite database, TypeORM
-- RESTful API, dễ dàng test với Postman
+- Sử dụng Prisma ORM, PostgreSQL, RESTful API
+- Hỗ trợ import Postman collection để test API
+- Hỗ trợ alias import với @, @common, @game
 
 ## Quick Start
 
@@ -64,13 +65,15 @@ npm run start:prod
 File `pet-game-backend.postman_collection.json` đã được tạo sẵn để test các API. Import vào Postman và chọn môi trường phù hợp (`baseUrl`).
 
 ## Database
-- Sử dụng SQLite (`game.db`)
-- Khi thay đổi entity, chỉ cần khởi động lại server (TypeORM tự cập nhật schema)
+- Sử dụng PostgreSQL (có thể dùng Railway, Supabase, ...)
+- Cấu hình kết nối trong file `.env` với biến `DATABASE_URL`
+- Khi thay đổi model, dùng Prisma migrate để cập nhật schema
 
 ## Development
 - Lint & format: `npm run lint:fix` và `npm run format`
 - Test: `npm run test`, `npm run test:e2e`
 - Cấu hình Husky, lint-staged để kiểm tra code trước khi commit
+- Hỗ trợ alias import với cấu hình trong `tsconfig.json`
 
 ## License
 MIT

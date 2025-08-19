@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../common/prisma.service';
+import { PrismaService } from 'common/prisma.service.js';
 
 @Injectable()
 export class GameService {
@@ -54,7 +54,7 @@ export class GameService {
     const pet = await this.prisma.pet.findUnique({ where: { id: petId } });
     const item = await this.prisma.item.findUnique({ where: { id: itemId } });
     if (!pet || !item) throw new Error('Pet or Item not found');
-    let totalExp = (item.exp || 0) * quantity;
+    const totalExp = (item.exp || 0) * quantity;
     let exp = (pet.exp || 0) + totalExp;
     let level = pet.level;
     let expToLevelUp = pet.expToLevelUp;
