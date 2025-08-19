@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Prisma schema for Pet Game Backend
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String?
+  balance   Int      @default(0)
+  createdAt DateTime @default(now())
+  pets      Pet[]
+  eggs      Egg[]
+  items     UserItem[]
+}
+
+model Pet {
+  id           Int      @id @default(autoincrement())
+  ownerId      Int
+  owner        User     @relation(fields: [ownerId], references: [id])
+  name         String?
+  level        Int      @default(1)
+  exp          Int      @default(0)
+  expToLevelUp Int      @default(100)
+  stage        Int      @default(1)
+  type         String?
+  createdAt    DateTime @default(now())
+}
+
+model Egg {
+  id        Int      @id @default(autoincrement())
+  ownerId   Int
+  owner     User     @relation(fields: [ownerId], references: [id])
+  type      String
+  hatched   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Item {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  exp       Int?
+  createdAt DateTime @default(now())
+  userItems UserItem[]
+}
+
+model UserItem {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  itemId  Int
+  user    User  @relation(fields: [userId], references: [id])
+  item    Item  @relation(fields: [itemId], references: [id])
+  quantity Int  @default(0)
+}
